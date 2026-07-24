@@ -9,17 +9,21 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const cookieStore = await cookies();
   const token = cookieStore.get('kitchen_token')?.value;
   
-  if (!token) redirect('/');
+  if (!token) redirect('/api/auth/clear-session');
   
   const payload = await verifyToken(token);
-  if (!payload || !payload.userId) redirect('/');
+  if (!payload || !payload.userId) {
+    redirect('/api/auth/clear-session');
+  }
   
   const user = await prisma.user.findUnique({
     where: { id: payload.userId as string },
     select: { id: true, nome: true, cognome: true, ruolo: true, posizione: true, status: true }
   });
 
-  if (!user) redirect('/');
+  if (!user) {
+    redirect('/api/auth/clear-session');
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>

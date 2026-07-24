@@ -295,8 +295,8 @@ body {
 /* Showcase / Screenshots Gallery */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
 @media (max-width: 600px) {
@@ -310,16 +310,19 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, transform 0.2s;
 }
 
 .gallery-item:hover {
   border-color: var(--accent-primary);
+  transform: translateY(-2px);
 }
 
 .gallery-item img {
   width: 100%;
-  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  object-position: top;
   display: block;
   border-bottom: 1px solid var(--border-color);
 }

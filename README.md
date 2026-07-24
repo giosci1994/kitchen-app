@@ -23,29 +23,48 @@
 
 > Interfaccia moderna in modalità scura, ottimizzata per smartphone, tablet e desktop.
 
-<p align="center"><b>Home & Dashboard Overview</b></p>
-<p align="center"><img src="docs/Home.jpg" alt="Home Dashboard" width="900"/></p>
-
-<p align="center"><b>Gestione Magazzino (Inventario)</b></p>
-<p align="center"><img src="docs/Magazzino.jpg" alt="Magazzino" width="900"/></p>
-
-<p align="center"><b>Ricettario & Schede Tecniche</b></p>
-<p align="center"><img src="docs/Ricettario.jpg" alt="Ricettario" width="900"/></p>
-
-<p align="center"><b>Menu Degustazione & Carte</b></p>
-<p align="center"><img src="docs/Menu.jpg" alt="Menu" width="900"/></p>
-
-<p align="center"><b>Prep List & Organizzazione Lavoro</b></p>
-<p align="center"><img src="docs/Prep_list.jpg" alt="Prep List" width="900"/></p>
-
-<p align="center"><b>Mise en Place</b></p>
-<p align="center"><img src="docs/Mis_en_place.jpg" alt="Mise en place" width="900"/></p>
-
-<p align="center"><b>Calendario Eventi & Prenotazioni</b></p>
-<p align="center"><img src="docs/Eventi.jpg" alt="Eventi" width="900"/></p>
-
-<p align="center"><b>Chat Interna & Comunicazione della Brigata</b></p>
-<p align="center"><img src="docs/Chat.jpg" alt="Chat" width="900"/></p>
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/Home.jpg" alt="Home Dashboard" width="450"/><br/>
+      <b>Home & Dashboard Overview</b>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/Magazzino.jpg" alt="Magazzino" width="450"/><br/>
+      <b>Gestione Magazzino (Inventario)</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/Ricettario.jpg" alt="Ricettario" width="450"/><br/>
+      <b>Ricettario & Schede Tecniche</b>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/Menu.jpg" alt="Menu" width="450"/><br/>
+      <b>Menu Degustazione & Carte</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/Prep_list.jpg" alt="Prep List" width="450"/><br/>
+      <b>Prep List & Organizzazione</b>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/Mis_en_place.jpg" alt="Mise en place" width="450"/><br/>
+      <b>Mise en Place</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/Eventi.jpg" alt="Eventi" width="450"/><br/>
+      <b>Calendario Eventi & Prenotazioni</b>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/Chat.jpg" alt="Chat" width="450"/><br/>
+      <b>Chat Interna di Brigata</b>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -99,7 +118,7 @@ Offre una dashboard centrale per monitorare in tempo reale lo stato delle scorte
 ## 🛠️ Requisiti & Setup Docker
 
 ### Prerequisiti
-- Docker Engine 20.10+ e Docker Compose installed.
+- Docker Engine 20.10+ e Docker Compose installati.
 
 ### Avvio Rapido
 

@@ -23,17 +23,44 @@
 
 > Dark theme, built for kitchen tablets, headless servers and responsive mobile screens.
 
-<p align="center">
-  <img src="docs/Home.jpg" alt="Home" width="24%" />
-  <img src="docs/Magazzino.jpg" alt="Magazzino" width="24%" />
-  <img src="docs/Ricettario.jpg" alt="Ricettario" width="24%" />
-  <img src="docs/Menu.jpg" alt="Menu" width="24%" />
-  <br>
-  <img src="docs/Prep_list.jpg" alt="Prep List" width="24%" />
-  <img src="docs/Mis_en_place.jpg" alt="Mise en place" width="24%" />
-  <img src="docs/Eventi.jpg" alt="Eventi" width="24%" />
-  <img src="docs/Chat.jpg" alt="Chat" width="24%" />
-</p>
+<table align="center" style="border: none; text-align: center;">
+  <tr>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Home.jpg" alt="Home" width="200" /><br>
+      <sup>Dashboard</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Magazzino.jpg" alt="Magazzino" width="200" /><br>
+      <sup>Inventario</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Ricettario.jpg" alt="Ricettario" width="200" /><br>
+      <sup>Ricettario</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Menu.jpg" alt="Menu" width="200" /><br>
+      <sup>Carte & Menu</sup>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Prep_list.jpg" alt="Prep List" width="200" /><br>
+      <sup>Prep-list</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Mis_en_place.jpg" alt="Mise en place" width="200" /><br>
+      <sup>Mise en place</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Eventi.jpg" alt="Eventi" width="200" /><br>
+      <sup>Calendario Eventi</sup>
+    </td>
+    <td align="center" style="border: none; padding: 10px;">
+      <img src="docs/Chat.jpg" alt="Chat" width="200" /><br>
+      <sup>Chat Brigata</sup>
+    </td>
+  </tr>
+</table>
 
 ---
 

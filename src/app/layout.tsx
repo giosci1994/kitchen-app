@@ -5,6 +5,7 @@ import CookieBanner from './CookieBanner';
 export const metadata: Metadata = {
   title: 'Kitchen App',
   description: 'Gestionale automatizzato per i processi in cucina',
+  manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

@@ -297,7 +297,7 @@ export default function PrepListPage() {
             <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
               <CheckSquare size={50} style={{ opacity: 0.3, marginBottom: '1rem' }} />
               <h3 style={{ color: 'var(--text-main)' }}>{showTab === 'recurring' ? 'Nessuna attività ricorrente' : 'Nessuna prep list'}</h3>
-              <p>Usa il form a sinistra per creare una nuova lista.</p>
+              <p>Usa il form per creare una nuova lista.</p>
             </div>
           ) : visibleLists.map(renderList)}
         </div>

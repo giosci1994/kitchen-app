@@ -156,12 +156,12 @@ export default function MagazzinoPage() {
       </div>
 
       {/* Tabella */}
-      <div className="glass-panel" style={{ padding: '1.5rem', overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+      <div className="glass-panel" style={{ padding: '1rem', overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
               <th style={{ padding: '0.8rem 0.5rem' }}>Ingrediente</th>
-              <th style={{ padding: '0.8rem 0.5rem' }}>Categoria</th>
+              <th className="hide-on-mobile" style={{ padding: '0.8rem 0.5rem' }}>Categoria</th>
               <th style={{ padding: '0.8rem 0.5rem' }}>Unità</th>
               <th style={{ padding: '0.8rem 0.5rem' }}>Giacenza</th>
               <th className="hide-on-mobile" style={{ padding: '0.8rem 0.5rem', textAlign: 'right' }}>Carico / Scarico / Azioni</th>
@@ -178,29 +178,26 @@ export default function MagazzinoPage() {
                 return (
                   <tr key={ing.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
                     <td style={{ padding: '0.7rem 0.5rem', fontWeight: 500 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Package size={15} color="var(--primary)" style={{ flexShrink: 0 }} /> 
-                        {isAdmin ? (
-                          <input 
-                            type="text" 
-                            defaultValue={ing.name} 
-                            onBlur={(e) => { 
-                              if (e.target.value.trim() !== '' && e.target.value !== ing.name) {
-                                handleFieldChange(ing.id, 'name', e.target.value.trim()); 
-                              }
-                            }}
-                            style={{ 
-                              background: 'rgba(0,0,0,0.3)', color: 'var(--text-main)', border: '1px solid var(--border)', 
-                              padding: '0.35rem 0.5rem', borderRadius: '6px', fontSize: '0.9rem', width: '100%',
-                              outline: 'none', fontWeight: 500
-                            }}
-                          />
-                        ) : (
-                          <span>{ing.name}</span>
-                        )}
-                      </div>
+                      {isAdmin ? (
+                        <input 
+                          type="text" 
+                          defaultValue={ing.name} 
+                          onBlur={(e) => { 
+                            if (e.target.value.trim() !== '' && e.target.value !== ing.name) {
+                              handleFieldChange(ing.id, 'name', e.target.value.trim()); 
+                            }
+                          }}
+                          style={{ 
+                            background: 'rgba(0,0,0,0.3)', color: 'var(--text-main)', border: '1px solid var(--border)', 
+                            padding: '0.35rem 0.5rem', borderRadius: '6px', fontSize: '0.9rem', width: '100%',
+                            outline: 'none', fontWeight: 500
+                          }}
+                        />
+                      ) : (
+                        <span>{ing.name}</span>
+                      )}
                     </td>
-                    <td style={{ padding: '0.7rem 0.5rem' }}>
+                    <td className="hide-on-mobile" style={{ padding: '0.7rem 0.5rem' }}>
                       {isAdmin ? (
                         <select value={ing.category || 'ALTRO'} onChange={(e) => handleFieldChange(ing.id, 'category', e.target.value)}
                           style={{ background: 'rgba(0,0,0,0.3)', color: 'var(--text-main)', border: '1px solid var(--border)', padding: '0.35rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer' }}>

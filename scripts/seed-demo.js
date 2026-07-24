@@ -128,6 +128,7 @@ async function main() {
     data: {
       title: 'Tagliolini al Tartufo Nero e Burro di Malga',
       category: 'PRIMO',
+      imageUrl: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=800&q=80',
       instructions: '1. Impastare farina e tuorli d\'uovo fino a ottenere un panetto omogeneo. 2. Stendere la sfoglia sottile a mano e ricavare i tagliolini. 3. Sciogliere il burro di malga in padella a fuoco dolce. 4. Cuocere i tagliolini in abbondante acqua salata per 2 minuti, poi mantecare in padella. 5. Spolverare con Parmigiano 30 mesi e abbondante Tartufo Nero affettato a crudo.',
       ingredients: {
         create: [
@@ -144,6 +145,7 @@ async function main() {
     data: {
       title: 'Filetto di Chianina al Chianti e Erbe Aromatiche',
       category: 'SECONDO',
+      imageUrl: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80',
       instructions: '1. Tamponare il filetto e massaggiarlo con olio EVO e sale maldon. 2. Rosolare a fuoco vivo su ghisa bollente 2 minuti per lato. 3. Sfumare con la riduzione di Chianti DOP. 4. Passare in forno a 180°C per 5 minuti fino al cuore rosé. 5. Far riposare 3 minuti prima del taglio.',
       ingredients: {
         create: [
@@ -158,6 +160,7 @@ async function main() {
     data: {
       title: 'Tiramisù Tradizionale al Mascarpone',
       category: 'DESSERT',
+      imageUrl: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80',
       instructions: '1. Montare i tuorli d\'uovo con lo zucchero fino a raddoppiare il volume. 2. Incorporare delicatamente la panna e il mascarpone. 3. Inzuppare i savoiardi nel caffè espresso senza zuccherarlo. 4. Comporre a strati e riposare in frigocella per almeno 4 ore.',
       ingredients: {
         create: [
@@ -169,7 +172,7 @@ async function main() {
     }
   });
 
-  console.log('✅ Ricette Gourmet inserite');
+  console.log('✅ Ricette Gourmet inserite con immagini');
 
   // 4. Piatti e Menù
   const dish1 = await prisma.dish.create({
@@ -217,9 +220,57 @@ async function main() {
     }
   });
 
-  console.log('✅ Piatti e Menù creati');
+  const menuDegustazione = await prisma.menu.create({
+    data: {
+      type: 'DEGUSTAZIONE',
+      title: 'Percorso Degustazione "Gusto e Tradizione"',
+      isActive: true,
+      items: {
+        create: [
+          { dishId: dish1.id, section: 'Portata 1', price: '24.00 €', sortOrder: 1 },
+          { dishId: dish2.id, section: 'Portata 2', price: '32.00 €', sortOrder: 2 },
+          { dishId: dish3.id, section: 'Dolce Finale', price: '9.00 €', sortOrder: 3 }
+        ]
+      }
+    }
+  });
 
-  // 5. Eventi
+  console.log('✅ Piatti, Menù alla Carta e Menù Degustazione creati');
+
+  // 5. Ordini Magazzino
+  await prisma.order.create({
+    data: {
+      title: 'Ordine Settimanale Pesce & Carne',
+      date: new Date(),
+      status: 'INVIATO',
+      notes: 'Consegna richiesta entro venerdì ore 08:00',
+      items: {
+        create: [
+          { name: 'Spigola Fresca del Tirreno', unit: 'kg', category: 'PESCI', quantity: 15.0 },
+          { name: 'Filetto di Chianina IGP', unit: 'kg', category: 'CARNI', quantity: 10.0 }
+        ]
+      }
+    }
+  });
+
+  await prisma.order.create({
+    data: {
+      title: 'Rifornimento Secco & Latticini (Bozza)',
+      date: new Date(),
+      status: 'BOZZA',
+      notes: 'Da integrare con uova e farina',
+      items: {
+        create: [
+          { name: 'Mozzarella di Bufala Campana DOP', unit: 'kg', category: 'LATTICINI', quantity: 8.0 },
+          { name: 'Olio Extravergine d\'Oliva Chianti DOP', unit: 'L', category: 'SECCHI', quantity: 12.0 }
+        ]
+      }
+    }
+  });
+
+  console.log('✅ Ordini Magazzino creati');
+
+  // 6. Eventi
   const now = new Date();
   await prisma.event.create({
     data: {
@@ -243,10 +294,10 @@ async function main() {
 
   console.log('✅ Eventi in calendario inseriti');
 
-  // 6. Prep List & Task
-  const prepList = await prisma.prepList.create({
+  // 7. Prep List & Task
+  await prisma.prepList.create({
     data: {
-      title: 'Preparazioni Linea Cucina Pranzo & Cena',
+      title: 'Preparazioni Linea Cucina Pranzo & Cena (Ricorrente)',
       date: now,
       isRecurring: true,
       recurringDay: now.getDay(),
@@ -268,7 +319,27 @@ async function main() {
     }
   });
 
-  console.log('✅ Prep List e Task assegnati');
+  await prisma.prepList.create({
+    data: {
+      title: 'Mise en Place Speciale del Giorno',
+      date: now,
+      isRecurring: false,
+      members: {
+        create: [
+          { userId: chef.id },
+          { userId: commis.id }
+        ]
+      },
+      tasks: {
+        create: [
+          { title: 'Selezione e pulizia tartufi neri', isCompleted: false, assignedToId: chef.id },
+          { title: 'Controllo giacenze celle frigorifere', isCompleted: true, assignedToId: commis.id }
+        ]
+      }
+    }
+  });
+
+  console.log('✅ Prep List (Ricorrenti e Per Data) e Task assegnati');
 
   // 7. Bacheca Avvisi
   await prisma.announcement.create({

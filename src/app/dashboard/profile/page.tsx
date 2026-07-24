@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { User, Phone, MapPin, Lock, Save, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { User, Phone, MapPin, Lock, Save, AlertCircle, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
@@ -16,6 +16,8 @@ export default function ProfilePage() {
     password: '',
     confirmPassword: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -167,7 +169,26 @@ export default function ProfilePage() {
               <label className="input-label">Nuova Password</label>
               <div style={{ position: 'relative' }}>
                 <Lock size={18} className="input-icon" style={{ top: '1.1rem' }} />
-                <input type="password" minLength={6} className="input-field" placeholder="••••••••" value={passwordData.password} onChange={e => setPasswordData({...passwordData, password: e.target.value})} required />
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  minLength={6} 
+                  className="input-field" 
+                  placeholder="••••••••" 
+                  value={passwordData.password} 
+                  onChange={e => setPasswordData({...passwordData, password: e.target.value})} 
+                  style={{ paddingRight: '2.5rem' }}
+                  required 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute', right: '0.8rem', top: '50%', transform: 'translateY(-50%)',
+                    background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center'
+                  }}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
@@ -175,7 +196,26 @@ export default function ProfilePage() {
               <label className="input-label">Conferma Password</label>
               <div style={{ position: 'relative' }}>
                 <Lock size={18} className="input-icon" style={{ top: '1.1rem' }} />
-                <input type="password" minLength={6} className="input-field" placeholder="••••••••" value={passwordData.confirmPassword} onChange={e => setPasswordData({...passwordData, confirmPassword: e.target.value})} required />
+                <input 
+                  type={showConfirmPassword ? "text" : "password"} 
+                  minLength={6} 
+                  className="input-field" 
+                  placeholder="••••••••" 
+                  value={passwordData.confirmPassword} 
+                  onChange={e => setPasswordData({...passwordData, confirmPassword: e.target.value})} 
+                  style={{ paddingRight: '2.5rem' }}
+                  required 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{
+                    position: 'absolute', right: '0.8rem', top: '50%', transform: 'translateY(-50%)',
+                    background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center'
+                  }}
+                >
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
@@ -188,12 +228,12 @@ export default function ProfilePage() {
 
       <div style={{ marginTop: '3rem', padding: '2rem 1rem 1rem', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
         <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-          © {new Date().getFullYear()} Kitchen App. Tutti i diritti riservati.
+          © {new Date().getFullYear()} Kitchen App by <a href="https://github.com/giosci1994" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 600 }}>giosci1994</a>. All rights reserved.
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', fontSize: '0.8rem' }}>
-          <a href="/terms" target="_blank" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Handelsbetingelser</a>
+          <a href="/terms" target="_blank" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
           <span style={{ color: 'var(--border)' }}>|</span>
-          <a href="/privacy" target="_blank" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privatlivspolitik</a>
+          <a href="/privacy" target="_blank" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
           <span style={{ color: 'var(--border)' }}>|</span>
           <a href="/cookie" target="_blank" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Cookie Policy</a>
         </div>

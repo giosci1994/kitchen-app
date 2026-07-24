@@ -30,3 +30,12 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Aggiunto nel footer il riferimento e link diretto al profilo GitHub dell'autore (`giosci1994`).
 - Risolto un problema di loop di redirect (ERR_TOO_MANY_REDIRECTS) dovuto ai vecchi cookie di sessione rimasti sul browser dopo il reset del database.
 - Risolto il bug di reindirizzamento all'indirizzo interno del container (`0.0.0.0:3000`) utilizzando `req.nextUrl.clone()` al posto di `new URL(..., req.url)` nei middleware e route handler.
+
+## [UI Improvements & Extended Demo Data] - 2026-07-24
+- Popolato il ricettario con immagini HD di anteprima da Unsplash.
+- Creato il Menù Degustazione "Gusto e Tradizione" a fianco del Menù alla Carta.
+- Aggiunti ordini dimostrativi di magazzino sia in stato BOZZA che INVIATO.
+- Aggiunta una prep-list "Mise en place del giorno" per data oltre alla lista ricorrente.
+- Ottimizzata la tabella Inventario per schermi mobile: rimossa l'icona ingombrante e lasciati in evidenza nome completo, giacenza e unità.
+- Aggiornato il testo nella Prep-List rimuovendo la posizione "a sinistra" per adattarsi alla vista smartphone.
+- Aggiunta la possibilità di vedere la password in chiaro nella pagina Profilo (sezione Sicurezza) e aggiornati i link del footer in inglese con riferimento a GitHub `giosci1994`.

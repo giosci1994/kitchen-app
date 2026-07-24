@@ -1,0 +1,324 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Posizione {
+  SUPER_ADMIN
+  OWNER
+  RESTAURANT_MANAGER
+  EXECUTIVE_CHEF
+  SOUS_CHEF
+  FB_MANAGER
+  ECONOMO
+  CHEF_DE_PARTIE
+  PASTICCIERE
+  COMMIS_CUCINA
+  LAVAPIATTI
+  MAITRE
+  SOMMELIER
+  CAMERIERE
+  HOST
+  MAGAZZINIERE
+  RESPONSABILE_ACQUISTI
+  CONTABILE
+  FATTORINO
+  MANUTENTORE
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+model User {
+  id           String         @id @default(uuid())
+  email        String         @unique
+  passwordHash String
+  nome         String
+  cognome      String
+  telefono     String?
+  indirizzo    String?
+  sessionVersion Int          @default(1)
+  status       UserStatus     @default(PENDING)
+  ruolo          Role           @default(USER)
+  posizione      Posizione      @default(COMMIS_CUCINA)
+  lastLogin      DateTime?
+  acceptedTermsAt DateTime?     // Tracciamento GDPR
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  permissions    String?
+  prepLists      PrepListUser[]
+  assignedTasks PrepTask[]    @relation("TaskAssignee")
+  auditLogs     AuditLog[]
+  announcements  Announcement[] @relation("AnnouncementAuthor")
+  chatMessages   ChatMessage[]  @relation("ChatMessageAuthor")
+}
+
+enum RecipeCategory {
+  ANTIPASTO
+  PRIMO
+  SECONDO
+  DESSERT
+  CONTORNO
+  ALTRO
+  BASE
+}
+
+model Recipe {
+  id           String             @id @default(uuid())
+  title        String
+  category     RecipeCategory     @default(ALTRO)
+  imageUrl     String?
+  instructions String
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  ingredients  RecipeIngredient[]
+  dishRecipes  DishRecipe[]
+}
+
+enum IngredientCategory {
+  VERDURE
+  CARNI
+  PESCI
+  LATTICINI
+  SECCHI
+  SURGELATI
+  BEVANDE
+  PULIZIA
+  UTENSILI
+  ALTRO
+  SPEZIE
+  FRUTTA
+  FARINE
+}
+
+model Ingredient {
+  id              String               @id @default(uuid())
+  name            String               @unique
+  unit            String               // es. 'kg', 'box', 'cartone', 'cassa'
+  category        IngredientCategory   @default(ALTRO)
+  warehouseStock  Warehouse?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+}
+
+model RecipeIngredient {
+  id             String     @id @default(uuid())
+  recipeId       String
+  name           String     // Nome ingrediente nella ricetta (es. "uovo sodo")
+  unit           String     @default("g")
+  baseQuantity   Float      // Quantità per ricetta base (es. x1)
+  
+  recipe         Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+model Warehouse {
+  id             String     @id @default(uuid())
+  ingredientId   String     @unique
+  stockQuantity  Float      @default(0)
+  updatedAt      DateTime   @updatedAt
+
+  ingredient     Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+}
+
+enum EventType {
+  EVENT
+  MENU_DEGUSTAZIONE
+  CARTA
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  title       String
+  date        DateTime
+  description String?
+  type        EventType @default(EVENT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PrepList {
+  id           String         @id @default(uuid())
+  title        String
+  date         DateTime       @default(now())
+  isRecurring  Boolean        @default(false)
+  recurringDay Int?           // 0=Domenica, 1=Lunedì ... 6=Sabato
+  tasks        PrepTask[]
+  members      PrepListUser[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model PrepListUser {
+  id         String   @id @default(uuid())
+  prepListId String
+  userId     String
+  
+  prepList   PrepList @relation(fields: [prepListId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([prepListId, userId])
+}
+
+model PrepTask {
+  id           String     @id @default(uuid())
+  prepListId   String
+  title        String
+  isCompleted  Boolean    @default(false)
+  parentTaskId String?
+  assignedToId String?
+  
+  prepList     PrepList   @relation(fields: [prepListId], references: [id], onDelete: Cascade)
+  parentTask   PrepTask?  @relation("SubTasks", fields: [parentTaskId], references: [id], onDelete: SetNull)
+  subTasks     PrepTask[] @relation("SubTasks")
+  assignedTo   User?      @relation("TaskAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum OrderStatus {
+  BOZZA
+  INVIATO
+  COMPLETATO
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  title       String?
+  date        DateTime
+  status      OrderStatus @default(BOZZA)
+  notes       String?
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String   @id @default(uuid())
+  orderId     String
+  name        String
+  unit        String
+  category    String   @default("ALTRO")
+  quantity    Float
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+enum MenuType {
+  CARTA
+  DEGUSTAZIONE
+}
+
+model Menu {
+  id        String     @id @default(uuid())
+  type      MenuType
+  title     String     @default("Menu")
+  isActive  Boolean    @default(true)
+  items     MenuItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model MenuItem {
+  id         String  @id @default(uuid())
+  menuId     String
+  dishId     String?
+  section    String  // CARTA: "ANTIPASTO","PRIMO"... DEGUSTAZIONE: "1","2","3"...,"DESSERT"
+  price      String?
+  sortOrder  Int     @default(0)
+  
+  menu       Menu    @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  dish       Dish?   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+}
+
+model Dish {
+  id              String         @id @default(uuid())
+  name            String
+  description     String?
+  category        String         @default("ALTRO")
+  price           String?
+  
+  recipes         DishRecipe[]
+  ingredients     DishIngredient[]
+  menuItems       MenuItem[]
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model DishRecipe {
+  id         String @id @default(uuid())
+  dishId     String
+  recipeId   String
+
+  dish       Dish   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  recipe     Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+model DishIngredient {
+  id           String @id @default(uuid())
+  dishId       String
+  name         String
+  quantity     String?
+
+  dish         Dish   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String   // es. "Menu Locked", "Inventory Alert", "Login"
+  entity    String   // "System", "Inventory", "Menu", "User"
+  details   String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SystemMessage {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  type      String   @default("INFO") // "ALERT", "INFO"
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model RolePermission {
+  id          String    @id @default(uuid())
+  posizione   Posizione @unique
+  permissions String    // JSON: { "ricette": ["view","edit","delete"], "menu": ["view"], ... }
+  updatedAt   DateTime  @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  priority  String   @default("NORMAL") // "URGENT", "NORMAL", "LOW"
+  isPinned  Boolean  @default(false)
+  authorId  String
+  author    User     @relation("AnnouncementAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  content   String
+  authorId  String
+  author    User     @relation("ChatMessageAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}

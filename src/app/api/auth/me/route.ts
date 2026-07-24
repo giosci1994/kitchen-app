@@ -11,16 +11,27 @@ export async function GET() {
     if (!token) return NextResponse.json({ error: 'Non autenticato' }, { status: 401 });
 
     const payload = await verifyToken(token);
-    if (!payload || !payload.userId) return NextResponse.json({ error: 'Token non valido' }, { status: 401 });
+    if (!payload || !payload.userId) {
+      const res = NextResponse.json({ error: 'Token non valido' }, { status: 401 });
+      res.cookies.delete('kitchen_token');
+      return res;
+    }
 
     const user = await prisma.user.findUnique({
       where: { id: payload.userId as string },
       select: { id: true, nome: true, cognome: true, email: true, ruolo: true, posizione: true, sessionVersion: true }
     });
 
-    if (!user) return NextResponse.json({ error: 'Utente non trovato' }, { status: 404 });
+    if (!user) {
+      const res = NextResponse.json({ error: 'Utente non trovato' }, { status: 404 });
+      res.cookies.delete('kitchen_token');
+      return res;
+    }
+
     if (payload.sessionVersion !== undefined && user.sessionVersion !== payload.sessionVersion) {
-      return NextResponse.json({ error: 'Sessione scaduta o invalidata. Effettua nuovamente il login.' }, { status: 401 });
+      const res = NextResponse.json({ error: 'Sessione scaduta o invalidata. Effettua nuovamente il login.' }, { status: 401 });
+      res.cookies.delete('kitchen_token');
+      return res;
     }
 
     // Carica i permessi effettivi per la posizione

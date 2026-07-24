@@ -12,20 +12,14 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!token) redirect('/');
   
   const payload = await verifyToken(token);
-  if (!payload || !payload.userId) {
-    cookieStore.delete('kitchen_token');
-    redirect('/');
-  }
+  if (!payload || !payload.userId) redirect('/');
   
   const user = await prisma.user.findUnique({
     where: { id: payload.userId as string },
     select: { id: true, nome: true, cognome: true, ruolo: true, posizione: true, status: true }
   });
 
-  if (!user) {
-    cookieStore.delete('kitchen_token');
-    redirect('/');
-  }
+  if (!user) redirect('/');
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>

@@ -14,7 +14,14 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Creato `.env.example` come template di riferimento.
 - Azzerata la cronologia Git per eliminare residui dai vecchi commit non pubblici.
 
-## [PWA Integration] - 2026-07-24
+## [Unreleased] - 2026-07-24
+
+### Added
+- **README.md**: Stesura del file README dettagliato in italiano e inglese, completo di badge, anteprime UI, caratteristiche dell'app, guida all'installazione Docker e istruzioni di configurazione per GitHub (Description, Topics e Social Preview).
+- **Website Landing Page (`website/`)**: Creata una landing page statica in HTML/CSS basata sul design e sulla palette colori scura di `docker2homeassistant`.
+- **Assets**: Integrati gli screenshot in `docs/` e `website/assets/` per la presentazione visiva.
+
+## [1.2.0] - 2026-07-24
 - Integrata la libreria `@serwist/next` per il supporto Service Worker nativo.
 - Generato `src/app/manifest.ts` per rendere l'app installabile (standalone).
 - Generata l'icona PWA personalizzata e salvata nei formati 192x192, 512x512 e apple-touch-icon.

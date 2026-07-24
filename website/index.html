@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070b0a" />
+  <meta name="description"
+    content="Kitchen App — Piattaforma moderna per la gestione di cucine professionali, magazzino, ricettari, prep-list e menu degustazione." />
+  <title>Kitchen App — Modern Kitchen & Restaurant Management</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kitchen App — Kitchen & Restaurant Management" />
+  <meta property="og:description"
+    content="Piattaforma moderna e PWA per ottimizzare il lavoro di brigata, inventario, ricette e preparazioni quotidiane." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/Home.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <!-- Header Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <a class="brand-main" href="#top" aria-label="Kitchen App Home">
+          <span>👨‍🍳 Kitchen App</span>
+        </a>
+        <a class="by" href="https://github.com/giosci1994" target="_blank" rel="noreferrer">by giosci1994 ↗</a>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#features">Caratteristiche</a>
+        <a href="#screenshots">Schermate</a>
+        <a href="#quickstart">Installazione</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a class="btn primary small" href="https://github.com/giosci1994/kitchen-app" target="_blank" rel="noreferrer">GitHub Repo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="container hero">
+      <div class="kicker">
+        <span class="dot"></span>
+        <span>Un progetto open-source di <a href="https://github.com/giosci1994" target="_blank" rel="noreferrer">giosci1994</a></span>
+      </div>
+
+      <h1>
+        Gestione professionale per la tua <span class="accent-text">Cucina & Brigata</span>.
+      </h1>
+
+      <p class="lead">
+        Una Web App reattiva ed elegante progettata per semplificare l'inventario in tempo reale, la gestione del ricettario, le liste di preparazione (Prep-List) ed i menu degustazione. Installabile come PWA su qualsiasi dispositivo.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#quickstart">🚀 Inizia Subito</a>
+        <a class="btn ghost" href="#screenshots">📸 Guarda la UI</a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>✨ Funzionalità Principali</h2>
+          <p>Tutto ciò di cui la tua cucina ha bisogno in un'unica piattaforma integrata.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Magazzino & Inventario</h3>
+            <p>Tracciamento delle giacenze in tempo reale, avvisi di sottoscorta, unita di misura ed una griglia ottimizzata appositamente per la lettura su smartphone e tablet da cucina.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📖</div>
+            <h3>Ricettario & Dosaggi</h3>
+            <p>Schede tecniche dettagliate per ogni piatto con procedurali, grammature precise e foto in alta definizione.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🍽️</div>
+            <h3>Carte & Menu Degustazione</h3>
+            <p>Organizza i menu del ristorante, inclusi i percorsi Degustazione con associazioni dirette ai piatti del ricettario.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Prep-List & Mise en Place</h3>
+            <p>Organizza il lavoro della brigata suddiviso per data o linea di servizio. Form di aggiunta rapido e spunta visiva in tempo reale.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Eventi & Prenotazioni</h3>
+            <p>Pianifica banchetti e serate speciali collegando direttamente la spesa ed i task di preparazione agli eventi in programma.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>PWA & Chat di Brigata</h3>
+            <p>Installa l'app direttamente sulla Home di iOS, Android o Desktop. Comunica velocemente con il personale grazie alla chat integrata.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>📸 Panoramica dell'Interfaccia</h2>
+          <p>Design curato nei minimi dettagli per un'esperienza d'uso fluida ed immediata.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="./assets/Home.jpg" alt="Home Dashboard" />
+            <div class="gallery-item-info">
+              <h4>Dashboard Principale</h4>
+              <p>Panoramica completa con accesso rapido alle funzioni chiave ed allo stato del giorno.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="./assets/Magazzino.jpg" alt="Gestione Magazzino" />
+            <div class="gallery-item-info">
+              <h4>Magazzino & Scorte</h4>
+              <p>Elenco prodotti reattivo con colonne ottimizzate per lo schermo del cellulare.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="./assets/Ricettario.jpg" alt="Ricettario" />
+            <div class="gallery-item-info">
+              <h4>Ricettario Digitale</h4>
+              <p>Schede ricetta complete con immagini ad alta risoluzione e dosaggi.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="./assets/Menu.jpg" alt="Menu Degustazione" />
+            <div class="gallery-item-info">
+              <h4>Carte & Menu Degustazione</h4>
+              <p>Gestione del menu ristorante e percorsi di degustazione.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="./assets/Prep_list.jpg" alt="Prep List" />
+            <div class="gallery-item-info">
+              <h4>Prep List & Organizzazione</h4>
+              <p>Liste di preparazione giornaliere per mantenere la brigata sempre sincronizzata.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="./assets/Mis_en_place.jpg" alt="Mise en Place" />
+            <div class="gallery-item-info">
+              <h4>Mise en Place</h4>
+              <p>Organizzazione della linea di servizio ed avanzamento delle attività.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quickstart Section -->
+    <section id="quickstart" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>🚀 Avvio Rapido con Docker</h2>
+          <p>Pronto per l'uso su server casalinghi, VPS o Raspberry Pi.</p>
+        </div>
+
+        <div class="quickstart-box">
+          <p>Esegui semplicemente il deployment tramite Docker Compose:</p>
+          <div class="code-block">
+            <code># Clonazione del repository
+git clone https://github.com/giosci1994/kitchen-app.git
+cd kitchen-app
+
+# Avvio del container
+docker compose up -d --build
+
+# Inizializzazione Database & Demo Data (Opzionale)
+docker compose exec app npx prisma migrate deploy
+docker compose exec app node scripts/seed-demo.js</code>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        Kitchen App © 2026 — Sviluppato con ❤️ da <a href="https://github.com/giosci1994" target="_blank" rel="noreferrer">giosci1994</a>
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>

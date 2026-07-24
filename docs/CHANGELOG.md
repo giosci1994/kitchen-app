@@ -28,3 +28,4 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Sistemato l'allineamento verticale della spunta dei Termini di Servizio durante la registrazione.
 - Tradotte le diciture legali del footer e dei modali in inglese (Terms of Service, Privacy Policy).
 - Aggiunto nel footer il riferimento e link diretto al profilo GitHub dell'autore (`giosci1994`).
+- Risolto un problema di loop di redirect (ERR_TOO_MANY_REDIRECTS) dovuto ai vecchi cookie di sessione rimasti sul browser dopo il reset del database.

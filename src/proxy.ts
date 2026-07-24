@@ -26,10 +26,9 @@ export async function proxy(req: NextRequest) {
 
     return NextResponse.next();
   } catch (err) {
-    if (!isAuthPage) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-    return NextResponse.next();
+    const res = isAuthPage ? NextResponse.next() : NextResponse.redirect(new URL('/', req.url));
+    res.cookies.delete('kitchen_token');
+    return res;
   }
 }
 

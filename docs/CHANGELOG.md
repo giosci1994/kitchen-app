@@ -29,3 +29,4 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Tradotte le diciture legali del footer e dei modali in inglese (Terms of Service, Privacy Policy).
 - Aggiunto nel footer il riferimento e link diretto al profilo GitHub dell'autore (`giosci1994`).
 - Risolto un problema di loop di redirect (ERR_TOO_MANY_REDIRECTS) dovuto ai vecchi cookie di sessione rimasti sul browser dopo il reset del database.
+- Risolto il bug di reindirizzamento all'indirizzo interno del container (`0.0.0.0:3000`) utilizzando `req.nextUrl.clone()` al posto di `new URL(..., req.url)` nei middleware e route handler.

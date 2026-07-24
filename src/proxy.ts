@@ -11,7 +11,9 @@ export async function proxy(req: NextRequest) {
 
   if (!token) {
     if (!isAuthPage) {
-      return NextResponse.redirect(new URL('/', req.url));
+      const url = req.nextUrl.clone();
+      url.pathname = '/';
+      return NextResponse.redirect(url);
     }
     return NextResponse.next();
   }
@@ -21,12 +23,16 @@ export async function proxy(req: NextRequest) {
     const { payload } = await jwtVerify(token, encodedSecret);
     
     if (isAuthPage) {
-      return NextResponse.redirect(new URL('/dashboard', req.url));
+      const url = req.nextUrl.clone();
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
     }
 
     return NextResponse.next();
   } catch (err) {
-    const res = isAuthPage ? NextResponse.next() : NextResponse.redirect(new URL('/', req.url));
+    const url = req.nextUrl.clone();
+    url.pathname = '/';
+    const res = isAuthPage ? NextResponse.next() : NextResponse.redirect(url);
     res.cookies.delete('kitchen_token');
     return res;
   }

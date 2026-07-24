@@ -21,3 +21,10 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Creata la pagina di fallback offline in `src/app/~offline/page.tsx`.
 - Configurato `src/app/sw.ts` con strategi di caching precache e runtime.
 - Aggiornato `src/app/layout.tsx` con viewport e metadati `themeColor`.
+
+## [Login & Registration UI Fixes] - 2026-07-24
+- Aggiunto il pulsante per mostrare/nascondere la password in chiaro sia in Login che in Registrazione.
+- Aggiunta la checkbox "Rimani connesso" con estensione della sessione a 30 giorni nel backend.
+- Sistemato l'allineamento verticale della spunta dei Termini di Servizio durante la registrazione.
+- Tradotte le diciture legali del footer e dei modali in inglese (Terms of Service, Privacy Policy).
+- Aggiunto nel footer il riferimento e link diretto al profilo GitHub dell'autore (`giosci1994`).

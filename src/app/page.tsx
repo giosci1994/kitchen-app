@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from 'react';
-import { Mail, Lock, User, LogIn, UserPlus, X } from 'lucide-react';
+import { Mail, Lock, User, LogIn, UserPlus, X, Eye, EyeOff, Github } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const LEGAL_CONTENT: Record<string, { title: string; body: React.ReactNode }> = {
   terms: {
-    title: 'Handelsbetingelser (Terms of Service)',
+    title: 'Terms of Service',
     body: (
       <>
         <h3>1. Introduzione</h3>
@@ -19,7 +19,7 @@ const LEGAL_CONTENT: Record<string, { title: string; body: React.ReactNode }> = 
     )
   },
   privacy: {
-    title: 'Privatlivspolitik (Privacy Policy)',
+    title: 'Privacy Policy',
     body: (
       <>
         <h3>1. Raccolta Dati</h3>
@@ -48,11 +48,13 @@ const LEGAL_CONTENT: Record<string, { title: string; body: React.ReactNode }> = 
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
     cognome: '',
     email: '',
     password: '',
+    rememberMe: false,
     acceptedTerms: false
   });
   const [error, setError] = useState('');
@@ -85,7 +87,11 @@ export default function Home() {
         const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: formData.email, password: formData.password })
+          body: JSON.stringify({ 
+            email: formData.email, 
+            password: formData.password,
+            rememberMe: formData.rememberMe 
+          })
         });
         const data = await res.json();
         if (!res.ok) { throw new Error(data.error || 'Errore durante il login'); }
@@ -126,88 +132,150 @@ export default function Home() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className="page-center" style={{ flex: 1, minHeight: 'auto' }}>
-      <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '420px', padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 className="text-gradient" style={{ fontSize: '2.8rem', margin: '0 0 0.5rem 0' }}>Kitchen.</h1>
-          <p>Il centro di controllo della tua cucina.</p>
-        </div>
-
-        {error && (
-          <div style={{ background: error.includes('successo') ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)', border: `1px solid ${error.includes('successo') ? 'var(--success)' : 'var(--danger)'}`, padding: '0.8rem', borderRadius: 'var(--radius-md)', color: error.includes('successo') ? 'var(--success)' : 'var(--danger)', marginBottom: '1.5rem', fontSize: '0.9rem', textAlign: 'center' }}>
-            {error}
+        <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '420px', padding: '2.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <h1 className="text-gradient" style={{ fontSize: '2.8rem', margin: '0 0 0.5rem 0' }}>Kitchen.</h1>
+            <p>Il centro di controllo della tua cucina.</p>
           </div>
-        )}
 
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <div style={{ display: 'flex', gap: '1rem' }} className="animate-fade-in animate-delay-1">
-              <div className="input-group" style={{ flex: 1 }}>
-                <label className="input-label">Nome</label>
-                <div style={{ position: 'relative' }}>
-                  <User size={18} className="input-icon" style={{ top: '1.1rem' }} />
-                  <input type="text" name="nome" value={formData.nome} onChange={handleChange} className="input-field" placeholder="Mario" />
-                </div>
-              </div>
-              <div className="input-group" style={{ flex: 1 }}>
-                <label className="input-label">Cognome</label>
-                <div style={{ position: 'relative' }}>
-                  <User size={18} className="input-icon" style={{ top: '1.1rem' }} />
-                  <input type="text" name="cognome" value={formData.cognome} onChange={handleChange} className="input-field" placeholder="Rossi" />
-                </div>
-              </div>
+          {error && (
+            <div style={{ background: error.includes('successo') ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)', border: `1px solid ${error.includes('successo') ? 'var(--success)' : 'var(--danger)'}`, padding: '0.8rem', borderRadius: 'var(--radius-md)', color: error.includes('successo') ? 'var(--success)' : 'var(--danger)', marginBottom: '1.5rem', fontSize: '0.9rem', textAlign: 'center' }}>
+              {error}
             </div>
           )}
 
-          <div className="input-group animate-fade-in animate-delay-2">
-            <label className="input-label">Email</label>
-            <div style={{ position: 'relative' }}>
-              <Mail size={18} className="input-icon" style={{ top: '1.1rem' }} />
-              <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field" placeholder="cuoco@ristorante.it" required />
+          <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <div style={{ display: 'flex', gap: '1rem' }} className="animate-fade-in animate-delay-1">
+                <div className="input-group" style={{ flex: 1 }}>
+                  <label className="input-label">Nome</label>
+                  <div style={{ position: 'relative' }}>
+                    <User size={18} className="input-icon" style={{ top: '1.1rem' }} />
+                    <input type="text" name="nome" value={formData.nome} onChange={handleChange} className="input-field" placeholder="Mario" />
+                  </div>
+                </div>
+                <div className="input-group" style={{ flex: 1 }}>
+                  <label className="input-label">Cognome</label>
+                  <div style={{ position: 'relative' }}>
+                    <User size={18} className="input-icon" style={{ top: '1.1rem' }} />
+                    <input type="text" name="cognome" value={formData.cognome} onChange={handleChange} className="input-field" placeholder="Rossi" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="input-group animate-fade-in animate-delay-2">
+              <label className="input-label">Email</label>
+              <div style={{ position: 'relative' }}>
+                <Mail size={18} className="input-icon" style={{ top: '1.1rem' }} />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field" placeholder="cuoco@ristorante.it" required />
+              </div>
             </div>
+
+            <div className="input-group animate-fade-in animate-delay-3">
+              <label className="input-label">Password</label>
+              <div style={{ position: 'relative' }}>
+                <Lock size={18} className="input-icon" style={{ top: '1.1rem' }} />
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  name="password" 
+                  value={formData.password} 
+                  onChange={handleChange} 
+                  className="input-field" 
+                  placeholder="••••••••" 
+                  required 
+                  minLength={6} 
+                  style={{ paddingRight: '2.5rem' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-muted)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0.2rem'
+                  }}
+                  title={showPassword ? "Nascondi password" : "Mostra password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            {isLogin && (
+              <div className="input-group animate-fade-in animate-delay-3" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '1rem' }}>
+                <input 
+                  type="checkbox" 
+                  name="rememberMe" 
+                  id="rememberMe" 
+                  checked={formData.rememberMe} 
+                  onChange={handleChange} 
+                  style={{ width: '17px', height: '17px', cursor: 'pointer', accentColor: 'var(--primary)' }} 
+                />
+                <label htmlFor="rememberMe" style={{ fontSize: '0.9rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}>
+                  Rimani connesso
+                </label>
+              </div>
+            )}
+
+            {!isLogin && (
+              <div className="input-group animate-fade-in animate-delay-3" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginTop: '1.2rem', background: 'rgba(0,0,0,0.15)', padding: '0.8rem 1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+                <input 
+                  type="checkbox" 
+                  name="acceptedTerms" 
+                  id="acceptedTerms" 
+                  checked={formData.acceptedTerms} 
+                  onChange={handleChange} 
+                  style={{ width: '18px', height: '18px', cursor: 'pointer', flexShrink: 0, accentColor: 'var(--primary)' }} 
+                />
+                <label htmlFor="acceptedTerms" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', cursor: 'pointer', lineHeight: 1.4, margin: 0 }}>
+                  Ho letto e accetto i <a href="#" onClick={openLegal('terms')} style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Terms of Service</a> e la <a href="#" onClick={openLegal('privacy')} style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</a>.
+                </label>
+              </div>
+            )}
+
+            <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginTop: '1.5rem' }}>
+              {loading ? 'Attendere...' : isLogin ? <><LogIn size={20} /> Accedi</> : <><UserPlus size={20} /> Registrati</>}
+            </button>
+          </form>
+
+          <div style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.95rem' }}>
+            <span style={{ color: 'var(--text-muted)' }}>
+              {isLogin ? 'Non hai un account?' : 'Hai già un account?'}
+            </span>
+            {' '}
+            <button type="button" onClick={handleToggle} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.95rem' }}>
+              {isLogin ? 'Registrati' : 'Accedi'}
+            </button>
           </div>
-
-          <div className="input-group animate-fade-in animate-delay-3">
-            <label className="input-label">Password</label>
-            <div style={{ position: 'relative' }}>
-              <Lock size={18} className="input-icon" style={{ top: '1.1rem' }} />
-              <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field" placeholder="••••••••" required minLength={6} />
-            </div>
-          </div>
-
-          {!isLogin && (
-            <div className="input-group animate-fade-in animate-delay-3" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', marginTop: '1.5rem', background: 'rgba(0,0,0,0.1)', padding: '1rem', borderRadius: '8px' }}>
-              <input type="checkbox" name="acceptedTerms" id="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} style={{ marginTop: '0.2rem', width: '18px', height: '18px', cursor: 'pointer' }} />
-              <label htmlFor="acceptedTerms" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', cursor: 'pointer', lineHeight: 1.4 }}>
-                Ho letto e accetto i <a href="#" onClick={openLegal('terms')} style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Termini di Servizio</a> e la <a href="#" onClick={openLegal('privacy')} style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</a>.
-              </label>
-            </div>
-          )}
-
-          <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginTop: '1.5rem' }}>
-            {loading ? 'Attendere...' : isLogin ? <><LogIn size={20} /> Accedi</> : <><UserPlus size={20} /> Registrati</>}
-          </button>
-        </form>
-
-        <div style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.95rem' }}>
-          <span style={{ color: 'var(--text-muted)' }}>
-            {isLogin ? 'Non hai un account?' : 'Hai già un account?'}
-          </span>
-          {' '}
-          <button type="button" onClick={handleToggle} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: '600', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.95rem' }}>
-            {isLogin ? 'Registrati' : 'Accedi'}
-          </button>
         </div>
-      </div>
       </div>
 
       <footer style={{ padding: '1.5rem 1rem', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
         <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-          © {new Date().getFullYear()} Kitchen App. Tutti i diritti riservati.
+          © {new Date().getFullYear()} Kitchen App. Tutti i diritti riservati. Sviluppato da{' '}
+          <a 
+            href="https://github.com/giosci1994" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+          >
+            <Github size={14} /> giosci1994
+          </a>
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', fontSize: '0.85rem' }}>
-          <a href="#" onClick={openLegal('terms')} style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 500 }}>Handelsbetingelser</a>
+          <a href="#" onClick={openLegal('terms')} style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 500 }}>Terms of Service</a>
           <span style={{ color: 'var(--border)' }}>|</span>
-          <a href="#" onClick={openLegal('privacy')} style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 500 }}>Privatlivspolitik</a>
+          <a href="#" onClick={openLegal('privacy')} style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 500 }}>Privacy Policy</a>
           <span style={{ color: 'var(--border)' }}>|</span>
           <a href="#" onClick={openLegal('cookie')} style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 500 }}>Cookie Policy</a>
         </div>

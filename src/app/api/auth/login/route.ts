@@ -8,7 +8,7 @@ import { logAudit, createSystemMessage } from '@/lib/audit';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, password } = body;
+    const { email, password, rememberMe } = body;
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Email e password sono obbligatori' }, { status: 400 });
@@ -51,6 +51,9 @@ export async function POST(req: Request) {
 
     const token = await signToken({ userId: user.id, email: user.email, ruolo: user.ruolo, sessionVersion: user.sessionVersion });
 
+    // Imposta la durata del cookie (30 giorni se rememberMe è selezionato, altrimenti 24 ore)
+    const maxAgeSeconds = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24;
+
     // Set cookie
     (await cookies()).set({
       name: 'kitchen_token',
@@ -58,7 +61,7 @@ export async function POST(req: Request) {
       httpOnly: true,
       path: '/',
       secure: false, // true solo se usi HTTPS
-      maxAge: 60 * 60 * 24, // 24 hours
+      maxAge: maxAgeSeconds,
     });
 
     return NextResponse.json({ 

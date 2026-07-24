@@ -13,3 +13,11 @@ Tutte le modifiche strutturali o importanti verranno tracciate in questo documen
 - Aggiornato `docker-compose.yml` per supportare variabili d'ambiente parametriche.
 - Creato `.env.example` come template di riferimento.
 - Azzerata la cronologia Git per eliminare residui dai vecchi commit non pubblici.
+
+## [PWA Integration] - 2026-07-24
+- Integrata la libreria `@serwist/next` per il supporto Service Worker nativo.
+- Generato `src/app/manifest.ts` per rendere l'app installabile (standalone).
+- Generata l'icona PWA personalizzata e salvata nei formati 192x192, 512x512 e apple-touch-icon.
+- Creata la pagina di fallback offline in `src/app/~offline/page.tsx`.
+- Configurato `src/app/sw.ts` con strategi di caching precache e runtime.
+- Aggiornato `src/app/layout.tsx` con viewport e metadati `themeColor`.

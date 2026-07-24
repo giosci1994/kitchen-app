@@ -50,3 +50,9 @@ next-env.d.ts
 # Tooling locale e AI
 /.claude
 /graphify-out
+
+# PWA Serwist generati
+/public/sw.js
+/public/sw.js.map
+/public/workbox-*.js
+/public/swe-worker-*.js

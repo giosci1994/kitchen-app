@@ -11,6 +11,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^7.6.0",
+    "@serwist/next": "^9.5.12",
     "@tiptap/extension-placeholder": "^3.22.1",
     "@tiptap/extension-underline": "^3.22.1",
     "@tiptap/pm": "^3.22.1",
@@ -22,7 +23,8 @@
     "next": "16.2.2",
     "pg": "^8.20.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "serwist": "^9.5.12"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

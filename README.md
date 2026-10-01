@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/badge/postgresql-15+-4169E1.svg" alt="PostgreSQL" />
   <img src="https://img.shields.io/badge/docker-compose-2496ED.svg" alt="Docker Compose" />
   <img src="https://img.shields.io/badge/PWA-ready-5A0FC8.svg" alt="PWA Ready" />
+  <a href="https://buymeacoffee.com/giosci1994u"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" /></a>
 </p>
 
 <p align="center">🇮🇹 <a href="#-italiano"><b>Italiano</b></a> · 🇬🇧 <a href="#-english"><b>English</b></a></p>
@@ -120,6 +121,12 @@ docker compose exec app npx prisma migrate deploy
 docker compose exec app node scripts/seed-demo.js
 ```
 
+## ☕ Supporta il progetto
+
+Se Kitchen App ti è utile, puoi offrirmi un caffè.
+
+<a href="https://buymeacoffee.com/giosci1994u"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45" alt="Buy Me a Coffee" /></a>
+
 ---
 
 # 🇬🇧 English
@@ -177,6 +184,12 @@ To initialize the database with demo data:
 docker compose exec app npx prisma migrate deploy
 docker compose exec app node scripts/seed-demo.js
 ```
+
+## ☕ Support
+
+If Kitchen App is useful to you, you can buy me a coffee.
+
+<a href="https://buymeacoffee.com/giosci1994u"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="45" alt="Buy Me a Coffee" /></a>
 
 ---
 

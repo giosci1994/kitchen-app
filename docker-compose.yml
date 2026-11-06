@@ -18,6 +18,8 @@ services:
     build: .
     container_name: kitchen-webapp
     restart: always
+    labels:
+      - "diun.enable=false"
     ports:
       - "3000:3000"
     environment:
